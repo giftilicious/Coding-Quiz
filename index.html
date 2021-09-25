@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Quiz</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Introduction page -->
+    <div class="intro">
+        <header>
+            <h1>CODING QUIZ</h1>
+            <p>Play this coding quiz game to test your coding knowledge. Play as many times as you like to try to beat your score. You have 60 seconds to complete the quiz. The timer will begin once you click "Start Quiz". Good luck and have fun!</p>
+            <button id="start-button">Start Quiz</button>
+        </header>
+    </div>
+    <!-- Timer element -->
+    <div class = "timer-clock hide">
+        <div id="timer-countdown">60</div>
+        <p> seconds left ⏰</p>
+    </div>
+    <!-- Question w/ answer buttons -->
+    <div class="quiz-questions hide">
+        <div id="question">Question?</div>
+        <div id="answerBtns" class="button-list"></div>
+        <button class="button">Answer 1</button>
+        <button class="button">Answer 2</button>
+        <button class="button">Answer 3</button>
+        <button class="button">Answer 4</button>
+    </div>
+    <!-- Next button element to move the game forward -->
+    <div>
+        <button id="next-button" class="next-button button hide">Next</button>
+    </div>
+    <!-- Shows user whether the selection is "Wrong" or "Correct" -->
+    <div>
+        <hr>
+        <h3 class="answerResult-text hide">Right or Wrong</h3>
+    </div>
+    <!-- Form for user to submit initials along with score  -->
+    <div class="final-score hide">
+        <h2>Here's your final score!</h2>
+        <textarea id="user-initials" placeholder="Enter Initials" class="initials-box"></textarea>
+        <button id="submit-initials" class="button">Submit</button>
+    </div>
+    <!-- Section to store and display user latest score -->
+    <div class="scoreboard hide">
+        <h2>Scoreboard</h2>
+        <p>Initials: <span id="user-initials"></span></p>
+        <p>Last score: <span id="user-score"></span></p>
+        <button id="restart-btn" class="button">Start Again</button>
+    </div>
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
+
+
+        <!-- <div id="options"></div>
+        <div id="correctAns"></div> -->
+    <!-- </div> -->
+    <!-- <ul>
+    <li class="answer"></li>
+    <li class="answer"></li>
+    <li class="answer"></li>
+    <li class="answer"></li>
+    </ul> -->
+    <!-- <div class="quiz-questions">
+            <h2 class=question-1></h2>
+            <button id="answer-1"></button>
+            <button id="answer-2"></button>
+            <button id="answer-3"></button>
+            <button id="answer-4"></button>
+        <hr>
+        <p id="result"></p>    
+    </div> -->
+    
+    
