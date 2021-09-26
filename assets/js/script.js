@@ -1,36 +1,40 @@
 
-//Set up my questions and answers
+//Set up my questions and answers - populate with actual questions
 let questions = [
     {
-        quesTitle: 'Why is the sky blue?',
-        answers: ['black', 'white', 'html', 'none of the above'],
-        correctAnswer: 'none of the above'
+        quesTitle: 'What does "ul" stand for?',
+        answers: ['Underline', 'User list', 'Unordered list', 'None of the above'],
+        correctAnswer: 'Unordered list'
     },
     {
-        quesTitle: 'Why is the sky blue?',
-        answers: ['black', 'white', 'html', 'none of the above'],
-        correctAnswer: 'html'
+        quesTitle: 'Where is the best place to put a <script> tag in the HTML index file?',
+        answers: ['Bottom of the body', 'Top of the body', 'Inside a </div> tag', "Nobody's business"],
+        correctAnswer: 'Bottom of the body'
     },
     {
-        quesTitle: 'What does element mean?',
-        answers: ['black', 'white', 'html', 'all of the above'],
-        correctAnswer: 'white'
+        quesTitle: 'What is a wireframe?',
+        answers: ['Computer chip', 'Monitor', 'Website mockup', 'All of the above'],
+        correctAnswer: 'Website mockup'
     },
     {
-        quesTitle: 'Why is the sky blue?',
-        answers: ['black', 'white', 'html', 'none of the above'],
-        correctAnswer: 'none of the above'
+        quesTitle: 'Select the correct symbol for a modulus',
+        answers: ['>=', '%', '*', '!=='],
+        correctAnswer: '%'
     },
     {
-        quesTitle: 'Why is the sky blue?',
-        answers: ['black', 'white', 'html', 'none of the above'],
-        correctAnswer: 'html'
+        quesTitle: 'Which git command starts a new repository?',
+        answers: ['git status', 'git add', 'pwd', 'git init'],
+        correctAnswer: 'git init'
     },
-]
+    {
+        quesTitle: 'Which scope can you declare a variable?',
+        answers: ['Global', 'Local', 'Global or local', 'Micro'],
+        correctAnswer: 'Global or local'
+    },
+];
 
 
 // Declare variables
-// let introEl = document.querySelector(".intro");
 let introEl = document.querySelector(".intro");
 let startButton = document.querySelector("#start-button");
 let nextButton = document.querySelector("#next-button");
@@ -42,60 +46,52 @@ let answerEl = document.querySelector("#answerBtns");
 let scoreEl = document.querySelector(".final-score");
 let userStats = document.querySelector(".scoreboard");
 let submitInitials = document.querySelector('#submit-initials');
+let playAgainBtn = document.querySelector('#restart-btn');
 
-let currentOrderQues = 0
+let currentOrderQues = 0;
 let timer;
-let timerCount = 60;
+let timerCount = 61;
 // let quesOptions = []
 
-// I want to start the quiz 
-//and show the questions, timer after I start
+// I want to start the quiz and show the questions, timer after I start
 // Start the game  
 function startQuiz() {
-    console.log("Let's go!")
     introEl.classList.add('hide');
     quizEl.classList.remove('hide');
     timerEl.classList.remove('hide');
     currentOrderQues = 0;
-    timerCount = 60;
+    timerCount = 61;
     startTimer();
     askQues();
-};
-
-
+}
+startButton.addEventListener('click', startQuiz);
 
 // I want to set a timer
 // I want the timer deduct time for each question that's answered wrong
 function startTimer() {
-    timer = setInterval(function () {
+    timer = setInterval(function() {
         timerCount--;
         timerEl.textContent = timerCount + " seconds left";
-
         if(timerCount <= 0) {
             timerEl.textContent = "0 seconds left";
-
           gameOver();
-
         }
     }, 1000);
-
 }
+
 // Display current question
 function askQues() {
-        // resetState();
         let currentQuestion = questions[currentOrderQues];
         questionEl.textContent = currentQuestion.quesTitle;
         currentQuestion.answers.forEach(function(answer, i) {
-            let answerBtn = document.getElementById('answer' + i)
-            answerBtn.textContent = answer  
-            answerBtn.addEventListener('click', selectAns)
-        })
-    };
+            let answerBtn = document.getElementById('answer' + i);
+            answerBtn.textContent = answer;
+            answerBtn.addEventListener('click', selectAns);
+        });
+    }
     
-
 // Check if answer is correct
 function selectAns(event) {
-    console.log(event.target.textContent)
     if (event.target.textContent === questions[currentOrderQues].correctAnswer){
         // rightAnswer()
     } else {
@@ -118,47 +114,45 @@ function selectAns(event) {
 
 // I want the quiz to end when timer hits 0 or user answers all questions
 function gameOver() {
-    clearInterval(timer)
-    console.log('Game Over')
+    clearInterval(timer);
     scoreEl.classList.remove('hide');
     quizEl.classList.add('hide');
-    
 }
 
+// I want user to enter initials beside score and submit it
 function saveScore() {
     let userInitialsEl = document.getElementById('user-initials');
-    let initials = userInitialsEl.value
-    let score = initials.toUpperCase() + ": " + timerCount;
-    localStorage.setItem("highScore", score);
+    let initials = userInitialsEl.value;
+    let scoreBoard = initials.toUpperCase() + ": " + timerCount;
+    localStorage.setItem("highScore", scoreBoard);
     scoreEl.classList.add('hide');
     userStats.classList.remove('hide');
     dispayScores();
 }
+submitInitials.addEventListener('click', saveScore);
 
+// I want final score and initial to show up on screen after user submits
+// and button for user to play again
 function dispayScores() {
+    timerEl.classList.add('hide');
     let highScore = localStorage.getItem('highScore')
     console.log(highScore);
+    highScore.textContent;
     let scoreInfo = highScore.split(': '); // ["GG", "12"]
-    let initials = scoreInfo[0];
-    let score = scoreInfo[1];
+    console.log(scoreInfo)
+    let initialsBox = document.getElementById('user-initials-display');
+    let scoreBox = document.getElementById('user-score');
+    initialsBox.textContent = scoreInfo[0];
+    scoreBox.textContent = scoreInfo[1];
 }
-
-// I want user to enter initials beside score and submit it
-
-
-// I last final and initial to show up on screen after user submits
-// and button for user to play again
-
-
-
+playAgainBtn.addEventListener('click', startQuiz);
 
 /////////////////////////////////////////////////////////////////////
 
 
 
 
-startButton.addEventListener('click', startQuiz);
-submitInitials.addEventListener('click', saveScore);
+
 
 // nextButton.addEventListener('click', () => {
 //     currentOrderQues++
