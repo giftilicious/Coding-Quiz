@@ -82,40 +82,52 @@ function startTimer() {
 }
 // Display current question
 function askQues() {
-        resetState();
-        displayQues(randomOrderQues[currentOrderQues]);
-        questionEl.textContent = questions[0].quesTitle;
-        for(let i=0; i < questions.length; i++) {
-            // This statement will run each time the loop is executed
-            console.log(questions[i]);
-          }
+        // resetState();
+        let currentQuestion = questions[currentOrderQues];
+        questionEl.textContent = currentQuestion.quesTitle;
+        currentQuestion.answers.forEach(function(answer, i) {
+            let answerBtn = document.getElementById('answer' + i)
+            answerBtn.textContent = answer  
+            answerBtn.addEventListener('click', selectAns)
+        })
     };
     
 
-    function displayQues(quesTitle) {
-        questionEl.textContent = quesTitle.quesTitle;
-        quesTitle.answers.forEach(answer => {
-            let newButton = document.createElement('button');
-            newButton.textContent = answer.selection;
-            newButton.classList.add('button');
-            if (selection.correct) {
-                newButton.dataset.correct = answer.correct;
-            }
-            newButton.addEventListener('click', selectAns);
-            answerEl.appendChild(newButton);
-        });
+// Check if answer is correct
+function selectAns(event) {
+    console.log(event.target.textContent)
+    if (event.target.textContent === questions[currentOrderQues].correctAnswer){
+        // rightAnswer()
+    } else {
+        timerCount = timerCount - 10;
+        timerEl.textContent = timerCount + " seconds left"; 
     }
+    currentOrderQues++
+    if (currentOrderQues === questions.length) {
+        gameOver();
+    } else {
+         askQues();
+    }
+}
 
 // I want "Correct" or "Wrong" to show on the bottom of screen when 
 // user selects answer
 
 
 
+
 // I want the quiz to end when timer hits 0 or user answers all questions
 function gameOver() {
     clearInterval(timer)
+    console.log('Game Over')
+    scoreEl.classList.remove('hide');
+    quizEl.classList.add('hide');
+    
 }
 
+function saveScore() {
+    
+}
 
 // I want user to enter initials beside score and submit it
 
