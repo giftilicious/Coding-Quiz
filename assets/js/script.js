@@ -1,5 +1,4 @@
 
-
 //Set up my questions and answers
 let questions = [
     {
@@ -42,6 +41,7 @@ let questionEl = document.querySelector("#question");
 let answerEl = document.querySelector("#answerBtns");
 let scoreEl = document.querySelector(".final-score");
 let userStats = document.querySelector(".scoreboard");
+let submitInitials = document.querySelector('#submit-initials');
 
 let currentOrderQues = 0
 let timer;
@@ -126,7 +126,21 @@ function gameOver() {
 }
 
 function saveScore() {
-    
+    let userInitialsEl = document.getElementById('user-initials');
+    let initials = userInitialsEl.value
+    let score = initials.toUpperCase() + ": " + timerCount;
+    localStorage.setItem("highScore", score);
+    scoreEl.classList.add('hide');
+    userStats.classList.remove('hide');
+    dispayScores();
+}
+
+function dispayScores() {
+    let highScore = localStorage.getItem('highScore')
+    console.log(highScore);
+    let scoreInfo = highScore.split(': '); // ["GG", "12"]
+    let initials = scoreInfo[0];
+    let score = scoreInfo[1];
 }
 
 // I want user to enter initials beside score and submit it
@@ -144,6 +158,8 @@ function saveScore() {
 
 
 startButton.addEventListener('click', startQuiz);
+submitInitials.addEventListener('click', saveScore);
+
 // nextButton.addEventListener('click', () => {
 //     currentOrderQues++
 //     askQues();
